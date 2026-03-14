@@ -192,6 +192,7 @@ st.markdown("""
 - **dose_inappropriée** : Dose en dehors de la plage recommandée
 - **contrainte_vitale** : Signes vitaux incompatibles avec le médicament
 - **concentration_inappropriée** : Concentration du médicament incorrecte
+- **changement_voie_administration** : Voie d'administration changée
 - **Sévérité 🚨 danger** : Erreur critique pouvant causer du tort au patient
 - **Sévérité ⚠️ attention** : Erreur à vérifier avant administration
 """)
