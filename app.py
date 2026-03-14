@@ -110,7 +110,19 @@ with tab2:
     
     # Afficher chaque administration
     for idx, row in patient_df.iterrows():
-        with st.expander(f"⏰ {row['Heure']} - {row['Médicament']} ({row['Dose (ml)']}ml)"):
+        # Détection d'erreur en avance pour colorier l'expander
+        error = detect_medication_error(row)
+        
+        # Déterminer l'icône et la couleur selon la sévérité
+        if error["has_error"]:
+            if error["severity"] == "danger":
+                icon = "🚨"
+            else:
+                icon = "⚠️"
+        else:
+            icon = "✅"
+        
+        with st.expander(f"{icon} {row['Heure']} - {row['Médicament']} ({row['Dose (ml)']}ml)"):
             # Détails de l'administration
             col1, col2, col3 = st.columns(3)
             with col1:
@@ -139,7 +151,6 @@ with tab2:
             st.divider()
             
             # Détection d'erreur
-            error = detect_medication_error(row)
             if error["has_error"]:
                 if error["severity"] == "danger":
                     st.error(f"🚨 ERREUR DÉTECTÉE: {error['explanation']}")
