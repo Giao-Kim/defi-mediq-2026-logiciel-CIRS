@@ -6,42 +6,42 @@ Basé sur les protocoles d'état de choc et les directives ACLS
 # Dosages appropriés par médicament et contexte
 MEDICATION_RULES = {
     "Adénosine": {
-        "normal_dose_range": (6, 12),  # mL
+        "normal_dose_range": (6, 12),  # mg
         "max_concentration": 3.0,  # mg/mL
         "administration_way": "Bolus",
     },
     "Amiodarone": {
-        "normal_dose_range": (150, 450),  # mL
+        "normal_dose_range": (150, 450),  # mg
         "max_concentration": 50.0,  # mg/mL
         "administration_way": "Perfusion",
     },
     "Ativan": {
-        "normal_dose_range": (0.5, 4),  # mL
+        "normal_dose_range": (0.5, 4),  # mg
         "max_concentration": 2.0,  # mg/mL
         "administration_way": "IM",
     },
     "Atropine": {
-        "normal_dose_range": (0.5, 3),  # mL
+        "normal_dose_range": (0.5, 3),  # mg
         "max_concentration": 0.1,  # mg/mL
         "administration_way": "Bolus",
     },
     "Bicarbonate de sodium": {
-        "normal_dose_range": (50, 100),  # mL
+        "normal_dose_range": (50, 100),  # mg
         "max_concentration": 1.0,  # mg/mL
         "administration_way": "Bolus",
     },
     "Chlorure de calcium": {
-        "normal_dose_range": (500, 2000),  # mL
+        "normal_dose_range": (500, 2000),  # mg
         "max_concentration": 100.0,  # mg/mL
         "administration_way": "Bolus",
     },
     "Dextrose": {
-        "normal_dose_range": (12500, 50000),  # mL
+        "normal_dose_range": (12500, 50000),  # mg
         "max_concentration": 500.0,  # mg/mL
         "administration_way": "Bolus",
     },
     "Diltiazem": {
-        "normal_dose_range": (10, 25),  # mL
+        "normal_dose_range": (10, 25),  # mg
         "max_concentration": 5.0,  # mg/mL
         "administration_way": "Bolus",
     },
@@ -51,47 +51,47 @@ MEDICATION_RULES = {
         "administration_way": "IM, Bolus",
     },
     "Fentanyl": {
-        "normal_dose_range": (0.025, 0.1),  # mL
+        "normal_dose_range": (0.025, 0.1),  # mg
         "max_concentration": 0.05,  # mg/mL
         "administration_way": "Bolus",
     },
     "Insuline": {
-        "normal_dose_range": (1.0, 1.0),  # mL
+        "normal_dose_range": (1.0, 1.0),  # mg
         "max_concentration": 100.0,  # mg/mL
         "administration_way": "Bolus",
     },
     "Naloxone": {
-        "normal_dose_range": (0.4, 2.0),  # mL
+        "normal_dose_range": (0.1, 0.4),  # mg
         "max_concentration": 0.4,  # mg/mL
         "administration_way": "Bolus, IM",
     },
     "Norépinéphrine": {
-        "normal_dose_range": (0.008, 0.032),  # mL
+        "normal_dose_range": (0.008, 0.032),  # mg
         "max_concentration": 0.016,  # mg/mL
         "administration_way": "Perfusion",
     },
     "Phényléphrine": {
-        "normal_dose_range": (0.05, 0.20),  # mL
+        "normal_dose_range": (0.05, 0.20),  # mg
         "max_concentration": 0.10,  # mg/mL
         "administration_way": "Bolus",
     },
     "Propofol": {
-        "normal_dose_range": (70, 175),  # mL
+        "normal_dose_range": (70, 175),  # mg
         "max_concentration": 10.0,  # mg/mL
         "administration_way": "Bolus",
     },
     "Rocuronium": {
-        "normal_dose_range": (42, 84),  # mL
+        "normal_dose_range": (42, 84),  # mg
         "max_concentration": 10.0,  # mg/mL
         "administration_way": "Bolus",
     },
     "Soluté physiologique": {
-        "normal_dose_range": (250, 2000),  # mL
+        "normal_dose_range": (250, 2000),  # mg
         "max_concentration": 1.0,  # mg/mL
         "administration_way": "Perfusion",
     },
     "Sulfate de magnésium": {
-        "normal_dose_range": (1000, 4000),  # mL
+        "normal_dose_range": (1000, 4000),  # mg
         "max_concentration": 500.0,  # mg/mL
         "administration_way": "Bolus",
     },
@@ -147,13 +147,27 @@ def detect_medication_error(row):
     if concentration_dose < min_dose or concentration_dose > max_dose:
         result["has_error"] = True
         result["error_type"] = "dose_inappropriée"
-        result["severity"] = (
-            "danger"
-            if concentration_dose > max_dose * 2 or concentration_dose * 5 < min_dose
-            else "attention"
+        # result["severity"] = (
+        #     "danger"
+        #     if concentration_dose > max_dose * 1.1 or concentration_dose * 1.1 < min_dose #10% hors norme
+        #     else "attention"
+        # )
+        
+        # Déterminer si la dose est trop haute ou trop basse
+        if concentration_dose * 1.1 < min_dose:
+            dose_status = "trop bas"
+            result["severity"] = "attention"
+            result["explanation"] = (
+            f"{medication}: Dose {concentration_dose:.3g} mg ({min_dose}-{max_dose} mg) {dose_status}"
         )
+        elif concentration_dose > max_dose * 1.1:
+            dose_status = "trop haut"
+            result["explanation"] = (
+            f"{medication}: Dose {concentration_dose:.3g} mg ({min_dose}-{max_dose} mg) {dose_status}"
+        )
+        
         result["explanation"] = (
-            f"{medication}: Dose {concentration_dose:.3g} mg hors normes ({min_dose}-{max_dose} mg)"
+            f"{medication}: Dose {concentration_dose:.3g} mg ({min_dose}-{max_dose} mg) {dose_status}"
         )
         return result
 
@@ -173,21 +187,22 @@ def analyze_patient_record(df):
         current_admin_way = row.get("Administration", "").strip().lower()
 
         if medication in medication_admin_ways:
-            previous_admin_way = medication_admin_ways[medication]
-            if previous_admin_way == "im" and current_admin_way != "im":
+            # Comparer avec la PREMIÈRE voie d'administration du médicament
+            first_admin_way = medication_admin_ways[medication]
+            if first_admin_way != current_admin_way:
                 errors.append(
                     {
                         "has_error": True,
                         "error_type": "changement_voie_administration",
                         "severity": "danger",
-                        "explanation": f"{medication}: Voie d'administration changer de IM à {row.get('Administration', '').strip()}",
+                        "explanation": f"{medication}: Voie d'administration changée de {first_admin_way.upper()} à {row.get('Administration', '').strip()}",
                         "row_number": idx + 2,
                         "medication": medication,
                         "time": row.get("Heure", "?"),
                     }
                 )
-
-        if medication not in medication_admin_ways:
+        else:
+            # Enregistrer la PREMIÈRE voie d'administration pour ce médicament
             medication_admin_ways[medication] = current_admin_way
 
         error = detect_medication_error(row)

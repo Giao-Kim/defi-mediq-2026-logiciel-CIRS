@@ -108,14 +108,24 @@ with tab2:
     st.write(f"**Patient ID:** {selected_patient}")
     st.write(f"**Nombre d'administrations:** {len(patient_df)}")
     
+    # Analyser le patient pour obtenir toutes les erreurs
+    patient_errors = analyze_patient_record(patient_df)
+    
     # afficher chaque administration
     for idx, row in patient_df.iterrows():
-        # Détection d'erreur en avance pour colorier l'expander
+        # Détection d'erreur simple
         error = detect_medication_error(row)
         
+        # Vérifier s'il y a des erreurs de changement de voie pour cette ligne
+        admin_change_errors = [e for e in patient_errors if e["row_number"] == idx + 2 and e["error_type"] == "changement_voie_administration"]
+        
         # Déterminer l'icône et la couleur selon la sévérité
-        if error["has_error"]:
-            if error["severity"] == "danger":
+        has_error = error["has_error"] or len(admin_change_errors) > 0
+        
+        if has_error:
+            # Vérifier si c'est un danger
+            is_danger = (error["has_error"] and error["severity"] == "danger") or (len(admin_change_errors) > 0 and admin_change_errors[0]["severity"] == "danger")
+            if is_danger:
                 icon = "🚨"
             else:
                 icon = "⚠️"
@@ -151,12 +161,16 @@ with tab2:
             st.divider()
             
             # Détection d'erreur
+            if len(admin_change_errors) > 0:
+                for admin_error in admin_change_errors:
+                    st.error(f"🚨 ERREUR DÉTECTÉE: {admin_error['explanation']}")
+            
             if error["has_error"]:
                 if error["severity"] == "danger":
                     st.error(f"🚨 ERREUR DÉTECTÉE: {error['explanation']}")
                 else:
                     st.warning(f"⚠️ ATTENTION: {error['explanation']}")
-            else:
+            elif len(admin_change_errors) == 0:
                 st.success("✓ Pas d'erreur détectée")
 
 with tab3:
