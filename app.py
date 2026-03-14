@@ -19,7 +19,7 @@ st.title("⚕️ Système de Détection d'Erreurs Médicamenteuses")
 st.markdown("Analyse en temps réel des admissions de médicaments pour patients en état de choc")
 
 # Sidebar pour télécharger ou sélectionner le fichier
-st.sidebar.header("📁 Chargement des données")
+st.sidebar.header("Chargement des données")
 
 uploaded_file = st.sidebar.file_uploader("Télécharger CSV", type=['csv'])
 
@@ -80,7 +80,7 @@ with tab1:
         
         error_df = pd.DataFrame(error_data)
         
-        # Colorier selon la sévérité
+        # couleur selon la sévérité
         def style_severity(val):
             if val == "danger":
                 return "background-color: #ff4d4d; color: white; font-weight: bold"
@@ -99,7 +99,7 @@ with tab1:
 with tab2:
     st.subheader("Analyse ligne par ligne")
     
-    # Sélectionner patient
+    # selection patient
     patient_ids = sorted(df["ID"].unique())
     selected_patient = st.selectbox("Sélectionner un patient", patient_ids, key="patient_select")
     
@@ -108,7 +108,7 @@ with tab2:
     st.write(f"**Patient ID:** {selected_patient}")
     st.write(f"**Nombre d'administrations:** {len(patient_df)}")
     
-    # Afficher chaque administration
+    # afficher chaque administration
     for idx, row in patient_df.iterrows():
         # Détection d'erreur en avance pour colorier l'expander
         error = detect_medication_error(row)
@@ -163,7 +163,7 @@ with tab3:
     st.subheader("Données brutes")
     st.dataframe(df, use_container_width=True)
     
-    # Télécharger comme CSV
+    # option de télécharger comme CSV
     csv = df.to_csv(index=False)
     st.download_button(
         label="Télécharger données",
