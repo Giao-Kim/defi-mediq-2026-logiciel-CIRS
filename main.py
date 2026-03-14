@@ -10,7 +10,7 @@ print(f"Répertoire courant : {os.getcwd()}\n")
 
 # Charger les données
 try:
-    medical_data = pd.read_csv("TEST.csv")
+    medical_data = pd.read_csv("EVALUATION.csv")
     print(f"✓ Fichier TEST.csv chargé avec succès")
     print(f"  - {len(medical_data)} lignes")
     print(f"  - {medical_data['ID'].nunique()} patient(s)\n")

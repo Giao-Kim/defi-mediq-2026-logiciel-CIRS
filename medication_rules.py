@@ -13,12 +13,12 @@ MEDICATION_RULES = {
     "Amiodarone": {
         "normal_dose_range": (150, 450),  # mg
         "max_concentration": 50.0,  # mg/mL
-        "administration_way": "Perfusion",
+        "administration_way": "Bolus, Perfusion",
     },
     "Ativan": {
         "normal_dose_range": (0.5, 4),  # mg
         "max_concentration": 2.0,  # mg/mL
-        "administration_way": "IM",
+        "administration_way": "Bolus, IM",
     },
     "Atropine": {
         "normal_dose_range": (0.5, 3),  # mg

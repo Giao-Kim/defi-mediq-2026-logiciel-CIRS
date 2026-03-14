@@ -26,11 +26,11 @@ uploaded_file = st.sidebar.file_uploader("Télécharger CSV", type=['csv'])
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
 else:
-    # Chercher TEST.csv en local
-    csv_path = Path("TEST.csv")
+    # Chercher EVALUATION.csv en local
+    csv_path = Path("EVALUATION.csv")
     if csv_path.exists():
         df = pd.read_csv(csv_path)
-        st.info(f"✓ Fichier TEST.csv chargé")
+        st.info(f"✓ Fichier EVALUATION.csv chargé")
     else:
         st.warning("Aucun fichier CSV trouvé. Veuillez télécharger un fichier.")
         st.stop()
