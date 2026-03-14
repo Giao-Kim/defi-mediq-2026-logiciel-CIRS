@@ -1,0 +1,128 @@
+{
+    "adenosine": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "amiodarone": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV, Perfusion"]
+    },
+    "ativan": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV", "IM"]
+    },
+    "atropine": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "bicarbonateDeSodium": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "chlorureDeCalcium": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "dextrose": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "diltiazem": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "épinéphrine": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV", "IO"]
+    },
+    "fentanyl": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "insuline": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "naloxone": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV", "IM", "IN"]
+    },
+    "norépinéphrine": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "phényléphrine": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV", "IM"]
+    },
+    "propofol": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "rocuronium": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "solutéPhysiologique": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV"]
+    },
+    "sulfateDeMagnésium": {
+        "concentration": "",
+        "recommendedDose": "",
+        "maxDose": "",
+        "minDose": "",
+        "adminMethod": ["IV", "IM"]
+    }
+}
