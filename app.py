@@ -10,12 +10,12 @@ import os
 from medication_rules import detect_medication_error, analyze_patient_record
 
 st.set_page_config(
-    page_title="Détecteur d'Erreurs Médicamenteuses",
+    page_title="Chariot Intelligent de Réanimation Sécurisée",
     page_icon="⚕️",
     layout="wide"
 )
 
-st.title("⚕️ Système de Détection d'Erreurs Médicamenteuses")
+st.title("⚕️ Chariot Intelligent de Réanimation Sécurisée")
 st.markdown("Analyse en temps réel des admissions de médicaments pour patients en état de choc")
 
 # Sidebar pour télécharger ou sélectionner le fichier

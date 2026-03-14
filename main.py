@@ -4,7 +4,7 @@ import os
 from medication_rules import analyze_patient_record, detect_medication_error
 
 print("=" * 60)
-print("Système de Détection d'Erreurs Médicamenteuses")
+print("Chariot Intelligent de Réanimation Sécurisée")
 print("=" * 60)
 print(f"Répertoire courant : {os.getcwd()}\n")
 
