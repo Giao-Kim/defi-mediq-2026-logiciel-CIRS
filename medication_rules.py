@@ -143,28 +143,21 @@ def detect_medication_error(row):
 
    
     min_dose, max_dose = rules.get("normal_dose_range", (0, 1000))
+    
     concentration_dose = dose * concentration  # Dose totale en mg
     if concentration_dose < min_dose or concentration_dose > max_dose:
         result["has_error"] = True
         result["error_type"] = "dose_inappropriée"
-        # result["severity"] = (
-        #     "danger"
-        #     if concentration_dose > max_dose * 1.1 or concentration_dose * 1.1 < min_dose #10% hors norme
-        #     else "attention"
-        # )
-        
-        # Déterminer si la dose est trop haute ou trop basse
+
         if concentration_dose * 1.1 < min_dose:
             dose_status = "trop bas"
             result["severity"] = "attention"
-            result["explanation"] = (
-            f"{medication}: Dose {concentration_dose:.3g} mg ({min_dose}-{max_dose} mg) {dose_status}"
-        )
         elif concentration_dose > max_dose * 1.1:
             dose_status = "trop haut"
-            result["explanation"] = (
-            f"{medication}: Dose {concentration_dose:.3g} mg ({min_dose}-{max_dose} mg) {dose_status}"
-        )
+            result["severity"] = "danger"
+        else:
+            dose_status = "hors normes"
+            result["severity"] = "attention"
         
         result["explanation"] = (
             f"{medication}: Dose {concentration_dose:.3g} mg ({min_dose}-{max_dose} mg) {dose_status}"
