@@ -1,5 +1,6 @@
 # defi-mediq-2026-logiciel
 CIRS - CHARIOT INTELLIGENT DE RÉANIMATION SÉCURISÉE
+Équipe CIRS : Giao Kim Pham, Selma Chau Saadali, Justin Sacksner, Emeric Giroux
 
 Le problème:
 
